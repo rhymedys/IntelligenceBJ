@@ -2,13 +2,14 @@ package com.example.rhymedys.intelligencebj;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import com.example.rhymedys.intelligencebj.activity.GuideActivity;
+import com.example.rhymedys.intelligencebj.activity.MainActivity;
 import com.example.rhymedys.intelligencebj.util.ContantValues;
 import com.example.rhymedys.intelligencebj.util.SpUtils;
 
@@ -39,6 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         splash_anim = AnimationUtils.loadAnimation(context, R.anim.anim_splash);
         ll_splash.startAnimation(splash_anim);
 
+        //动画监听
         splash_anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -53,6 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                 } else {
                     startActivity(new Intent(context,MainActivity.class));
                 }
+                finish();
             }
 
 
@@ -62,6 +65,4 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

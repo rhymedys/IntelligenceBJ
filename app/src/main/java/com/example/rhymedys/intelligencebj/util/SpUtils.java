@@ -117,7 +117,6 @@ public class SpUtils {
      * @param key     要删除的key键值
      */
     public static void remove(Context context, String key) {
-        // TODO 自动生成的方法存根
         if (sp == null) {
             sp = context.getSharedPreferences(CONFIG, context.MODE_PRIVATE);
         }
