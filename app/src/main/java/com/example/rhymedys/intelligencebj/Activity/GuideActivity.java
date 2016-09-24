@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.rhymedys.intelligencebj.R;
-import com.example.rhymedys.intelligencebj.adapter.GuideApater;
+import com.example.rhymedys.intelligencebj.adapter.GuideAdapter;
 import com.example.rhymedys.intelligencebj.util.ContantValues;
 import com.example.rhymedys.intelligencebj.util.LogUtils;
 import com.example.rhymedys.intelligencebj.util.SpUtils;
@@ -32,7 +31,7 @@ public class GuideActivity extends AppCompatActivity {
     private int[] drawableGuide;
     private List<ImageView> listBackground;
     private ImageView iv;
-    private GuideApater guideApater;
+    private GuideAdapter guideApater;
     private ImageView ivPoint;
     private ImageView iv_redpoint;
     private int intDistance;
@@ -71,7 +70,7 @@ public class GuideActivity extends AppCompatActivity {
         }
 
 
-        guideApater = new GuideApater(context, listBackground);
+        guideApater = new GuideAdapter(context, listBackground);
         vp_guide.setAdapter(guideApater);
     }
 

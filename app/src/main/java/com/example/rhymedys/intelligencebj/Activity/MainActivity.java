@@ -1,17 +1,26 @@
 package com.example.rhymedys.intelligencebj.activity;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.rhymedys.intelligencebj.R;
+import com.example.rhymedys.intelligencebj.fragment.ContentFragment;
+import com.example.rhymedys.intelligencebj.fragment.LeftMenuFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG_LEFTMENU_FRAGMENT = "leftmenu_fragment";
+    private static final String TAG_MAIN_FRAGMENT = "main_fragment";
     private Context context;
     private SlidingMenu slidingMenu;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void initUI() {
         newSlidingMenu();
+        initFragment();
+    }
+
+    private void initFragment() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fl_leftmenu, new LeftMenuFragment(), TAG_LEFTMENU_FRAGMENT);
+        fragmentTransaction.replace(R.id.fl_main, new ContentFragment(), TAG_MAIN_FRAGMENT);
+        fragmentTransaction.commit();
     }
 
     /**
@@ -52,4 +70,11 @@ public class MainActivity extends AppCompatActivity {
         //为侧滑菜单设置布局
         slidingMenu.setMenu(R.layout.left_menu);
     }
-}
+
+    public SlidingMenu getSlidingMenu() {
+        if (slidingMenu != null) {
+            return slidingMenu;
+        } else {
+            return null;
+        }
+    }}
