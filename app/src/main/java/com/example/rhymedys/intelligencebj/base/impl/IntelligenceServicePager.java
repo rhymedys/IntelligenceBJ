@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.rhymedys.intelligencebj.base.BasePager;
 
 /**
+ * 底部智慧服务菜单
  * Created by Rhymedys on 2016/9/24.
  */
 

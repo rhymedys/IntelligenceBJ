@@ -10,13 +10,17 @@ import android.os.Bundle;
 import com.example.rhymedys.intelligencebj.R;
 import com.example.rhymedys.intelligencebj.fragment.ContentFragment;
 import com.example.rhymedys.intelligencebj.fragment.LeftMenuFragment;
+import com.example.rhymedys.intelligencebj.util.LogUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import cn.sharesdk.framework.ShareSDK;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG_LEFTMENU_FRAGMENT = "leftmenu_fragment";
     private static final String TAG_MAIN_FRAGMENT = "main_fragment";
+    private static final String TAG ="MainActivity ";
     private Context context;
     private SlidingMenu slidingMenu;
     private FragmentManager fragmentManager;
@@ -58,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 //        slidingMenu.setShadowDrawable(R.drawable.shadow);
 
         // 设置滑动菜单视图的宽度
-        slidingMenu.setBehindOffset(200);
+//        slidingMenu.setBehindWidth(100);
+        slidingMenu.setBehindOffset(100);
 //        slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
         // 设置渐入渐出效果的值
         slidingMenu.setFadeDegree(0.35f);
@@ -77,4 +82,23 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return null;
         }
-    }}
+    }
+
+    public LeftMenuFragment getLeftMenuFragment() {
+        LeftMenuFragment tempFragment = null;
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        tempFragment = (LeftMenuFragment) fragmentManager.findFragmentByTag(TAG_LEFTMENU_FRAGMENT);
+        return tempFragment;
+    }
+
+    public ContentFragment getContentFragment() {
+        ContentFragment tempFragment = null;
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        tempFragment = (ContentFragment) fragmentManager.findFragmentByTag(TAG_MAIN_FRAGMENT);
+        return tempFragment;
+    }
+}

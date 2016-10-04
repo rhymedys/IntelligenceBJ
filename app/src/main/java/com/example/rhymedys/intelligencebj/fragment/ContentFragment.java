@@ -1,18 +1,11 @@
 package com.example.rhymedys.intelligencebj.fragment;
 
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 
 import com.example.rhymedys.intelligencebj.R;
-import com.example.rhymedys.intelligencebj.activity.MainActivity;
 import com.example.rhymedys.intelligencebj.adapter.ContentAdapter;
 import com.example.rhymedys.intelligencebj.base.BasePager;
 import com.example.rhymedys.intelligencebj.base.impl.GovernmentPager;
@@ -20,18 +13,19 @@ import com.example.rhymedys.intelligencebj.base.impl.HomePager;
 import com.example.rhymedys.intelligencebj.base.impl.IntelligenceServicePager;
 import com.example.rhymedys.intelligencebj.base.impl.NewsPager;
 import com.example.rhymedys.intelligencebj.base.impl.SettingPager;
+import com.example.rhymedys.intelligencebj.util.GetMainActivityUtils;
+import com.example.rhymedys.intelligencebj.util.LogUtils;
 import com.example.rhymedys.intelligencebj.view.NoScollViewPager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.rhymedys.intelligencebj.R.id.rg_menu;
-
 /**
  * 主内容Fragment
  */
 public class ContentFragment extends BaseFragment {
+    private static final String TAG = "ContentFragment";
 
     //    private RadioButton rb_home;
 //    private RadioButton rb_government;
@@ -42,13 +36,13 @@ public class ContentFragment extends BaseFragment {
 
     private NoScollViewPager vp_fragment_content;
 
-    private List<BasePager> mPagerList;
+    private List<BasePager> mBottomPagerList;
     private RadioGroup rg_menu;
-    private final static int HOME_PAPGER = 0;
-    private final static int NEWS_PAPGER = 1;
-    private final static int INTELLIGENCE_SERVICE_PAPGER = 2;
-    private final static int GOVERNMENT_PAPGER = 3;
-    private final static int SETTING_PAPGER = 4;
+    public final static int HOME_PAPGER = 0;
+    public final static int NEWS_PAPGER = 1;
+    public final static int INTELLIGENCE_SERVICE_PAPGER = 2;
+    public final static int GOVERNMENT_PAPGER = 3;
+    public final static int SETTING_PAPGER = 4;
 
     @Override
     public View initView() {
@@ -81,8 +75,6 @@ public class ContentFragment extends BaseFragment {
                     default:
                         break;
                 }
-
-
             }
         });
 
@@ -96,8 +88,8 @@ public class ContentFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (mPagerList != null) {
-                    mPagerList.get(position).initData();
+                if (mBottomPagerList != null) {
+                    mBottomPagerList.get(position).initData();
                 }
                 if (position == 0 || position == 4) {
                     setSlidingMenuEnable(false);
@@ -123,8 +115,7 @@ public class ContentFragment extends BaseFragment {
      * @param b
      */
     private void setSlidingMenuEnable(boolean b) {
-        MainActivity tempActivity = (MainActivity) myActivity;
-        SlidingMenu slidingMenu = tempActivity.getSlidingMenu();
+        SlidingMenu slidingMenu = GetMainActivityUtils.getSlidingMenu(myActivity);
         if (b) {
             slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         } else {
@@ -135,21 +126,46 @@ public class ContentFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        addMyPagerList();
-        if (mPagerList != null) {
-            vp_fragment_content.setAdapter(new ContentAdapter(myActivity, mPagerList));
+        addMyBottomPagerList();
+        if (mBottomPagerList != null) {
+            vp_fragment_content.setAdapter(new ContentAdapter(myActivity, mBottomPagerList));
             //首次加载ViewPager
-            mPagerList.get(HOME_PAPGER).initData();
+            mBottomPagerList.get(HOME_PAPGER).initData();
             setSlidingMenuEnable(false);
         }
     }
 
-    private void addMyPagerList() {
-        mPagerList = new ArrayList<BasePager>();
-        mPagerList.add(new HomePager(myActivity));
-        mPagerList.add(new IntelligenceServicePager(myActivity));
-        mPagerList.add(new GovernmentPager(myActivity));
-        mPagerList.add(new NewsPager(myActivity));
-        mPagerList.add(new SettingPager(myActivity));
+    private void addMyBottomPagerList() {
+        mBottomPagerList = new ArrayList<BasePager>();
+        mBottomPagerList.add(new HomePager(myActivity));
+        mBottomPagerList.add(new NewsPager(myActivity));
+        mBottomPagerList.add(new IntelligenceServicePager(myActivity));
+        mBottomPagerList.add(new GovernmentPager(myActivity));
+        mBottomPagerList.add(new SettingPager(myActivity));
+    }
+
+    /**
+     * 获取指定底部Pager  需强制转换成子类Pager
+     *
+     * @param PagerName 参数为 HOME_PAPGER ,NEWS_PAPGER ,INTELLIGENCE_SERVICE_PAPGER,GOVERNMENT_PAPGER ,
+     * @return 父类BasePager类型
+     */
+    public BasePager getPager(int PagerName) {
+        try {
+            if (PagerName == HOME_PAPGER || PagerName == NEWS_PAPGER ||
+                    PagerName == INTELLIGENCE_SERVICE_PAPGER ||
+                    PagerName == GOVERNMENT_PAPGER ||
+                    PagerName == SETTING_PAPGER) {
+                LogUtils.i(TAG, "getPager Success");
+                return mBottomPagerList.get(PagerName);
+            } else {
+                LogUtils.i(TAG, "getPager fail return null");
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.i(TAG, "getPager error");
+            return null;
+        }
     }
 }

@@ -13,6 +13,8 @@ import com.example.rhymedys.intelligencebj.activity.MainActivity;
 import com.example.rhymedys.intelligencebj.util.ContantValues;
 import com.example.rhymedys.intelligencebj.util.SpUtils;
 
+import org.xutils.x;
+
 public class SplashActivity extends AppCompatActivity {
 
     private Context context;
@@ -24,11 +26,26 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                initXUtils();
+            }
+        }).start();
+
         setContentView(R.layout.activity_splash);
         this.context = this;
         is_first_init = SpUtils.getBoolean(context, ContantValues.IS_FIRST_INIT, true);
 
         initUI();
+    }
+
+    /**
+     * initXUtils配置
+     */
+    private void initXUtils() {
+        x.Ext.init(getApplication());
+//        x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
     }
 
     /**
@@ -50,10 +67,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if (is_first_init) {
-                    startActivity(new Intent(context,GuideActivity.class));
+                    startActivity(new Intent(context, GuideActivity.class));
                     SpUtils.putBoolean(context, ContantValues.IS_FIRST_INIT, false);
                 } else {
-                    startActivity(new Intent(context,MainActivity.class));
+                    startActivity(new Intent(context, MainActivity.class));
                 }
                 finish();
             }

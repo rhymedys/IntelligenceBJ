@@ -24,4 +24,17 @@ public class NoScollViewPager extends ViewPager {
         //返回ture 表明不滑动
         return true;
     }
+
+    /**
+     * 拦截事件
+     * @param ev
+     * @return
+     */
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return false;
+    }
+
+
+
 }

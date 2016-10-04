@@ -2,15 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@android:color/black"
     tools:context="com.example.rhymedys.intelligencebj.fragment.LeftMenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tv_leftmenu"
+    <ListView
+        android:id="@+id/lv_leftmenuitem"
         android:layout_width="match_parent"
-        android:textColor="@android:color/black"
         android:layout_height="match_parent"
-        android:text="tv_leftmenu" />
+        android:layout_marginTop="80dp"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>

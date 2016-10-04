@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/IntelligenceBJ.iml" filepath="$PROJECT_DIR$/IntelligenceBJ.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sliding_menu/sliding_menu.iml" filepath="$PROJECT_DIR$/sliding_menu/sliding_menu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewpagerindicator_library/viewpagerindicator_library.iml" filepath="$PROJECT_DIR$/viewpagerindicator_library/viewpagerindicator_library.iml" />
     </modules>
   </component>
 </project>
